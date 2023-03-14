@@ -1,0 +1,50 @@
+<section id="hero">
+  <div class="container">
+    <div class="row">
+      <div class="hero-content">
+        <span class="subtitle">{{ .Site.Params.hero.intro }}</span>
+        <h2>{{ .Site.Params.hero.title }}</h2>
+        <h3>{{ .Site.Params.hero.subtitle }}</h3>
+        <p>
+            {{ .Site.Params.hero.content | markdownify }}
+        </p>
+        <div>
+          {{ if .Site.Params.hero.button.enable }}
+            <a href="{{ .Site.Params.hero.button.url }}" class="btn button-reverse" {{ cond .Site.Params.hero.button.download "download" "" }}
+              {{ if .Site.Params.hero.button.newPage | default false }}
+                target="_blank"
+              {{ end }}>
+              {{ .Site.Params.hero.button.name }}
+            </a>
+          {{ end }}
+        </div>
+        <div>
+          <span>
+            {{ range .Site.Params.hero.socialLinks.fontAwesomeIcons }}
+            <span>
+                <a href="{{ .url }}" target="_blank" class="btn social-icon">
+                    <i class="{{ .icon }}"></i>
+                </a>
+            </span>
+            {{ end }}
+
+            {{ range .Site.Params.hero.socialLinks.customIcons }}
+            <span>
+                <a href="{{ .url }}" target="_blank" class="btn social-icon">
+                    <img src="{{ .icon }}">
+                </a>
+            </span>
+            {{ end }}
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-image {{ if .Site.Params.animate }}animate{{ end }}">
+          <img src="{{ .Site.Params.hero.image }}"
+              class="img-thumbnail mx-auto{{ if .Site.Params.hero.roundImage }} rounded-circle{{ end }}"
+              alt="{{ .Site.Params.hero.imageAlt }}"
+          >
+      </div>
+    </div>
+  </div>
+</section>

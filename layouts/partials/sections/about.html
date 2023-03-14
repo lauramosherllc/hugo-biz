@@ -1,0 +1,25 @@
+<section id="about">
+  <div class="container">
+  <h3>{{ .Site.Params.about.title }}</h3>
+  <div class="row">
+      {{ if .Site.Params.about.image }}
+      <div class="section-image">
+        <div class="image d-flex px-5">
+            <img src="{{ .Site.Params.about.image }}" class="img-thumbnail mx-auto rounded-circle" alt="">
+        </div>
+      </div>
+      {{ end }}
+      <div class="section-content">
+        {{ .Site.Params.about.content | markdownify }}
+
+        <div class="list">
+          {{ if .Site.Params.about.list.enable }}
+            {{ range .Site.Params.about.list.items -}}
+              <a href="{{ .url }}"><img src="{{ .logo }}" alt="{{ .name }}" /></a>
+            {{- end }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

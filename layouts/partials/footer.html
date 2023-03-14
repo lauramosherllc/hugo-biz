@@ -1,0 +1,12 @@
+<div id="footer">
+  <p>&copy; {{ with .Site.Params.copyright.start }}{{ . }} - {{end}}{{ now.Format "2006"}} {{ .Site.Params.copyright.by }} {{ .Site.Params.copyright.terms | default "All Rights Reserved" }}</p>
+  <div>
+    {{ range .Site.Params.socialLinks }}
+      <a href="{{ .url }}" alt="{{ .platform }}" class="icon-link">
+        <svg width="24" height="24" fill="{{ .color | default "currentColor" }}">
+          <use href="{{ .Site.Params.staticPath }}/icons/brands.svg#{{ .icon }}"/>
+        </svg>
+      </a>
+    {{ end }}
+  </div>
+</div>

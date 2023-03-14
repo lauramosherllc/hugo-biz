@@ -1,0 +1,115 @@
+<section id="testimonials">
+  <div class="container">
+    <h3>{{ .Site.Params.testimonials.title }}</h3>
+    <div class="carousel-container {{ if le (len .Site.Params.testimonials.items) 3 }}carousel--fixed{{else}}carousel--flex{{end}}">
+      <div class="row">
+        <p>{{ .Site.Params.testimonials.content | markdownify}}</p>
+        <div class="navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" tabindex=0 data-action="prev" width="32" height="32" fill="currentColor" viewBox="0 0 16 16" class="disabled">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" tabindex=0 data-action="next" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+          </svg>
+        </div>
+      </div>
+      <ul class="carousel">
+        {{ range $index, $element := .Site.Params.testimonials.items }}
+          <li class="carousel-item carousel-item-{{ mod $index 4 }} {{ if eq $index 0}}active-slide{{end}}" role="listitem">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 9 7.558V11a1 1 0 0 0 1 1h2Zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612c0-.351.021-.703.062-1.054.062-.372.166-.703.31-.992.145-.29.331-.517.559-.683.227-.186.516-.279.868-.279V3c-.579 0-1.085.124-1.52.372a3.322 3.322 0 0 0-1.085.992 4.92 4.92 0 0 0-.62 1.458A7.712 7.712 0 0 0 3 7.558V11a1 1 0 0 0 1 1h2Z"/>
+            </svg>
+            <p>{{ $element.content | markdownify }}</p>
+          </li>
+        {{ end }}
+        </ul>
+    </div>
+  </div>
+  <script>
+    let currentSlide = 0;
+    const carousel = document.querySelector(".carousel")
+    let slides = carousel.querySelectorAll(".carousel-item");
+    let maxSlides = slides.length - 1;
+    const prevButton = document.querySelector(".carousel-container .navigation [data-action='prev']")
+    const nextButton = document.querySelector(".carousel-container .navigation [data-action='next']")
+
+    // Infinite rotation of slides
+    // function rotateSlides() {
+    //   slides.forEach((slide, indx) => {
+    //     // the code below works, copy and modify for testing
+    //     if (currentSlide <= indx + 1) {
+    //       slide.style.transform = `translateX(${(-(400 + 16)*(currentSlide % slides.length))}px)`;
+    //     } else {
+    //       slide.style.transform = `translateX(${(400 + 16)*(slides.length - currentSlide)}px)`;
+    //     }
+    //   });
+    // }
+
+    function rotateActiveSlide() {
+      if (currentSlide === maxSlides) {
+        nextButton.classList.add("disabled")
+      } else if (currentSlide === 0) {
+        prevButton.classList.add("disabled")
+      } else {
+        nextButton.classList.remove("disabled")
+        prevButton.classList.remove("disabled")
+      }
+      slides.forEach((slide, indx) => {
+        if (indx === currentSlide) {
+          slide.classList.add("active-slide");
+        } else {
+          slide.classList.remove("active-slide");
+        }
+        slide.style.transform = `translateX(${(-(slide.clientWidth + 32)*(currentSlide % slides.length))}px)`;
+      });
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        rotateActiveSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        rotateActiveSlide();
+      }
+    }
+
+    nextButton.addEventListener("click", nextSlide);
+    prevButton.addEventListener("click", prevSlide);
+    nextButton.addEventListener("keypress", function(e) {
+      e.preventDefault();
+      nextSlide();
+    });
+    prevButton.addEventListener("keypress", function(e) {
+      e.preventDefault();
+      prevSlide();
+    });
+
+    // touch events
+    var touchstartX = 0;
+    var touchendX = 0;
+
+    function handleCarouselGesture() {
+      if (touchendX < touchstartX) {
+        nextSlide()
+      }
+      if (touchendX > touchstartX) {
+        prevSlide()
+      }
+      touchendX = 0;
+      touchstartX = 0;
+    }
+
+    carousel.addEventListener('touchstart', function(e) {
+      touchstartX = e.changedTouches[0].screenX;
+    })
+    carousel.addEventListener('touchend', function(e) {
+      touchendX = e.changedTouches[0].screenX;
+      handleCarouselGesture();
+    })
+  </script>
+</section>

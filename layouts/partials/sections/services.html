@@ -1,0 +1,32 @@
+<section id="services">
+  <div class="container">
+    <div class="section-content">
+      <div class="services-content">
+        <h3>{{ .Site.Params.services.title }}</h3>
+
+        {{ .Site.Params.services.content | markdownify }}
+
+        <div class="list-container">
+          {{ if .Site.Params.services.roles.enable }}
+          {{ .Site.Params.services.roles.title }}
+          <ul>
+              {{ range .Site.Params.services.roles.items }}
+              <li>{{ . | markdownify }}</li>
+              {{ end }}
+          </ul>
+          {{ end }}
+        </div>
+      </div>
+      <div id="services-list">
+        {{ range $index, $element := .Site.Params.services.list -}}
+          <div class="container service-{{mod $index 4}}">
+            <div class="service">
+              <h5>{{ $element.title }}</h5>
+              {{ $element.content | markdownify }}
+            </div>
+          </div>
+        {{- end }}
+      </div>
+    </div>
+  </div>
+</section>

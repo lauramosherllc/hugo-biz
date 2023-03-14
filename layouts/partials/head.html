@@ -1,0 +1,68 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ .Site.Title }}</title>
+  <style>
+    :root {
+        /* default colors
+        Black: #21262C
+        Blue: #292F45
+        Teal: #56919B // #33565C
+        Orange: #DDA050
+        */
+
+        /* default */
+        --text-color: {{ .Site.Params.color.textColor | default "#21262C" }};
+        --text-secondary-color: {{ .Site.Params.color.secondaryTextColor | default "#eaedf0" }};
+        --background-color: {{ .Site.Params.color.backgroundColor | default "#F1F1F7" }};
+        --secondary-background-color: {{ .Site.Params.color.secondaryBackgroundColor | default "#292F45" }};
+        --primary-color: {{ .Site.Params.color.primaryColor | default "#56919B" }};
+        --secondary-color: {{ .Site.Params.color.secondaryColor | default "#DDA050" }};
+
+        /* --accent-color-1: #daeaf6; */
+        --accent-color-1: #E4B577;
+        --accent-color-2: #7ec4cf;
+        --accent-color-3: #d1cfe2;
+        --accent-color-4: #9cadce;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--background-color) !important;
+    }
+  </style>
+
+  <!-- stylesheets -->
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/carousel.css" />
+  <link rel="stylesheet" href="css/progress.css" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ .Site.Params.favicon }}">
+  <link rel="shortcut icon" href="{{ .Site.Params.favicon }}">
+
+  <!-- Functions -->
+  <script src="{{ .Site.Params.staticPath }}/js/contact.js"></script>
+
+  <!-- RSS etc -->
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
+  {{ end -}}
+</head>
