@@ -58,6 +58,10 @@ h6 {
   font-size: 1rem;
 }
 
+svg {
+  margin: 2px;
+}
+
 .container {
   width: 100%;
   padding-right: var(--gutter-x, .75rem);
