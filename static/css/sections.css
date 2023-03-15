@@ -66,6 +66,7 @@ section#hero .hero-image {
 }
 
 #hero p {
+  font-family: 'Barlow';
   max-width: 640px;
   opacity: 0.8;
   line-height: 1.2rem;
