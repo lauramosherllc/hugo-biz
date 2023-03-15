@@ -61,6 +61,11 @@
   <!-- Functions -->
   <script src="{{ .Site.Params.staticPath }}/js/contact.js"></script>
 
+  <!-- Analytics -->
+  {{- if .Site.GoogleAnalytics }}
+    {{ template "_internal/google_analytics.html" . }}
+  {{- end}}
+
   <!-- RSS etc -->
   {{ range .AlternativeOutputFormats -}}
     {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
