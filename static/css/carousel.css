@@ -11,12 +11,14 @@
 .carousel-container .navigation {
   text-align: right;
   margin-bottom: 1em;
+  margin-right: 1em;
   align-self: flex-end;
 }
 
 .carousel-container .navigation svg {
   fill: var(--primary-color);
   cursor: pointer;
+  border-radius: 50%;
 }
 .carousel-container .navigation svg.disabled {
   fill: lightgray;
