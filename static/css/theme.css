@@ -58,10 +58,6 @@ h6 {
   font-size: 1rem;
 }
 
-svg {
-  margin: 2px;
-}
-
 .container {
   width: 100%;
   padding-right: var(--gutter-x, .75rem);
@@ -115,6 +111,7 @@ a.icon-link:active,
 a.icon-link:visited {
   color: var(--text-secondary-color);
   text-decoration: none;
+  margin: 2px;
 }
 
 /* form and buttons */

@@ -6,11 +6,16 @@
 .carousel-container .row {
   justify-content: center;
 }
+.carousel-container .navigation {
+  width: max-content;
+  flex: 0 0 auto;
+}
 
 .carousel-container .navigation svg {
   fill: var(--primary-color);
   cursor: pointer;
   border-radius: 50%;
+  margin: 2px;
 }
 .carousel-container .navigation svg.disabled {
   fill: lightgray;
@@ -100,8 +105,6 @@
 
   .carousel-container .navigation {
     text-align: right;
-    margin-bottom: 1em;
-    margin-right: 1em;
     align-self: flex-end;
   }
 }
