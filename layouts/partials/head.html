@@ -62,7 +62,7 @@
   <script src="{{ .Site.Params.staticPath }}/js/contact.js"></script>
 
   <!-- Analytics -->
-  {{- if .Site.GoogleAnalytics }}
+  {{- if .Site.Params.GoogleAnalytics }}
     {{ template "_internal/google_analytics.html" . }}
   {{- end}}
 
